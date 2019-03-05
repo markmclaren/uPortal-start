@@ -19,6 +19,5 @@ RUN apk add mysql-client
 # Add Bind-tools and Nmap for network debugging
 RUN apk add bind-tools
 RUN apk add nmap
-RUN apk add nc
 
 ENTRYPOINT ["/bin/sh"]
