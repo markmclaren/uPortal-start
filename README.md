@@ -294,6 +294,7 @@ to create three different images (for three different purposes):
   - `apereo/uportal` is the basic, web server-only image
   - `apereo/uportal-cli` is the image for running CLI commands from within a container (e.g. Import/Export)
   - `apereo/uportal-demo` is an image that includes the embedded HSQL database and is suitable for evaluating uPortal
+  - `apereo/uportal-demo-k8s` is an image that includes MySQL database connector with some tools for debugging and is a proof of concept for deploying uPortal to Kubernetes 
 
 Use one of the following Gradle tasks to build the image(s) you need:
 
@@ -301,7 +302,8 @@ Use one of the following Gradle tasks to build the image(s) you need:
 ./gradlew dockerBuildImageWeb         // builds apereo/uportal
 ./gradlew dockerBuildImageCli         // builds apereo/uportal-cli
 ./gradlew dockerBuildImageDemo        // builds apereo/uportal-demo
-./gradlew dockerBuildImages           // builds all three images
+./gradlew dockerBuildImageK8S         // builds apereo/uportal-demo-k8s
+./gradlew dockerBuildImages           // builds all four images
 ```
 
 :warning: Always make sure both `tomcatInstall` and `tomcatDeploy` have run and their output is

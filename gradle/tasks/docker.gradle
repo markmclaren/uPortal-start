@@ -50,10 +50,25 @@ task dockerBuildImageDemo(type: DockerBuildImage) {
 
 }
 
+task dockerBuildImageK8S(type: DockerBuildImage) {
+    group 'Docker'
+    description 'Builds the uPortal Kubernetes Demo Docker image'
+    // Change to 'dependsOn' when we get our up-to-date sorted
+    mustRunAfter allprojects.collect { it.tasks.matching { it.name.equals('tomcatDeploy') } }
+    mustRunAfter dockerBuildImageDemo
+
+    dockerFile file('docker/Dockerfile-demo-k8s')
+    buildArgs = [ 'uPortalCliTag': dockerImageVersion ]
+    inputDir rootProject.projectDir
+    tag "${dockerImageBaseName}-demo-k8s:${dockerImageVersion}"
+
+}
+
 task dockerBuildImages {
     group 'Docker'
-    description 'All-in-one Gradle task for building all the Docker images:  uportal, uportal-cli, and uportal-demo'
+    description 'All-in-one Gradle task for building all the Docker images:  uportal, uportal-cli, uportal-demo and uportal-demo-k8s'
     dependsOn dockerBuildImageWeb
     dependsOn dockerBuildImageCli
     dependsOn dockerBuildImageDemo
+    dependsOn dockerBuildImageK8S
 }
